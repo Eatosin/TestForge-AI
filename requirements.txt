@@ -1,0 +1,10 @@
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+pydantic>=2.5.3
+google-generativeai>=0.3.2
+pypdf>=3.17.0
+python-multipart>=0.0.6
+tenacity>=8.2.3  # Critical for Retries
+aiofiles>=23.2.1 # Critical for Async File I/O
+loguru>=0.7.2    # SOTA Logging
+python-dotenv>=1.0.0
