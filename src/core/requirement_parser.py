@@ -1,12 +1,11 @@
-import os
 import aiofiles
 from pathlib import Path
-from typing import Optional, Dict
+from typing import Dict
 from pypdf import PdfReader
 from loguru import logger
 from pydantic import BaseModel, Field
 
-# Data Structure for Documents
+# SOTA Data Structure for Documents
 class ParsedDocument(BaseModel):
     filename: str
     content: str
@@ -63,8 +62,6 @@ class RequirementParser:
 
     @staticmethod
     async def _parse_pdf(path: Path) -> ParsedDocument:
-        # Note: PyPDF is CPU bound, run in executor if file is huge. 
-        # For <10MB, direct execution is acceptable for MVP.
         try:
             reader = PdfReader(str(path))
             text = []
