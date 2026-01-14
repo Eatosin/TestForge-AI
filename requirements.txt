@@ -29,6 +29,10 @@ python-magic
 
 # Utilities
 requests
-httpx
 pyyaml
-black  
+black
+
+# Testing
+pytest
+pytest-asyncio
+httpx
