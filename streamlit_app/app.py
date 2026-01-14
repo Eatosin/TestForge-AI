@@ -6,7 +6,7 @@ import os
 from dotenv import load_dotenv
 import altair as alt
 
-# Load Env
+# Load Env.
 load_dotenv()
 API_URL = os.getenv("API_URL", "http://localhost:8000")
 
