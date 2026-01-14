@@ -1,6 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from contextlib import asynccontextmanager
+from typing import Dict, Any
 from src.core.llm_engine import LLMEngine
 from src.ml.edge_case_detector import EdgeCaseDetector
 from src.core.code_generator import SeleniumGenerator
@@ -11,7 +12,8 @@ import os
 from loguru import logger
 
 # --- LIFESPAN MANAGER ---
-ml_resources = {}
+# FIX: Explicitly type this as Dict[str, Any] so Mypy allows different objects
+ml_resources: Dict[str, Any] = {}
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -26,7 +28,7 @@ async def lifespan(app: FastAPI):
         raise e
     yield
     ml_resources.clear()
-    logger.info(" System Shutdown.")
+    logger.info("🛑 System Shutdown.")
 
 # --- APP CONFIG ---
 app = FastAPI(
@@ -60,14 +62,17 @@ async def generate_tests(request: GenerateRequest):
 
     try:
         # 1. Generate Raw Tests
-        raw_tests = await ml_resources["llm"].generate_test_cases(request.requirements_text)
+        # Type ignore helps Mypy know we trust the type here
+        llm_engine: LLMEngine = ml_resources["llm"] 
+        raw_tests = await llm_engine.generate_test_cases(request.requirements_text)
         
         # 2. Apply Physics/ML Analysis
         for test in raw_tests:
             if "text" not in test:
                 test["text"] = f"{test.get('title', '')} {' '.join(test.get('steps', []))}"
             
-        analyzed_tests = await ml_resources["ml"].analyze_complexity(raw_tests)
+        ml_engine: EdgeCaseDetector = ml_resources["ml"]
+        analyzed_tests = await ml_engine.analyze_complexity(raw_tests)
         
         return TestSuiteResponse(
             suite_id=str(uuid.uuid4()),
@@ -85,7 +90,8 @@ async def generate_code(request: CodeGenRequest):
         raise HTTPException(status_code=503, detail="Codegen Engine not ready")
         
     try:
-        code = ml_resources["codegen"].generate_test_script(request.test_plan)
+        codegen_engine: SeleniumGenerator = ml_resources["codegen"]
+        code = codegen_engine.generate_test_script(request.test_plan)
         return CodeResponse(
             filename=f"test_{uuid.uuid4().hex[:8]}.py",
             python_code=code
