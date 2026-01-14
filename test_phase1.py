@@ -9,12 +9,12 @@ async def main():
     
     parser = RequirementParser()
     doc = await parser.parse("test_reqs.txt")
-    print(f"✅ Parsed: {doc.filename} ({doc.char_count} chars)")
+    print(f" Parsed: {doc.filename} ({doc.char_count} chars)")
     
     # 2. Test LLM
     llm = LLMEngine()
     tests = await llm.generate_test_cases(doc.content)
-    print(f"✅ Generated {len(tests)} Test Cases:")
+    print(f" Generated {len(tests)} Test Cases:")
     print(tests[0])
 
 if __name__ == "__main__":
