@@ -52,7 +52,7 @@ def test_scenario(driver):
             )
             try:
                 return black.format_str(raw_code, mode=black.Mode())
-            except:
+            except Exception:
                 return raw_code
         except Exception as e:
             logger.error(f"Gen Error: {e}")

@@ -36,16 +36,19 @@ class EdgeCaseDetector:
         return np.array(features, dtype=float)
 
     def _sanitize(self, value):
-        if hasattr(value, "item"): return value.item()
-        if isinstance(value, list) and len(value) == 1: return value[0]
+        if hasattr(value, "item"):
+            return value.item()
+        if isinstance(value, list) and len(value) == 1:
+            return value[0]
         return value
 
     def _analyze_sync(self, requirements: List[Dict]) -> List[RequirementAnalysis]:
-        if not requirements: return []
+        if not requirements:
+            return []
         try:
             X = self._extract_features(requirements)
-            ml_predictions = self.ml_model.fit_predict(X).tolist() # FIX: tolist()
-            physics_anomalies = self.physics_engine.detect(X[:, 0].tolist()) # FIX: tolist()
+            ml_predictions = self.ml_model.fit_predict(X).tolist()
+            physics_anomalies = self.physics_engine.detect(X[:, 0].tolist())
 
             results = []
             for i, req in enumerate(requirements):
@@ -53,8 +56,16 @@ class EdgeCaseDetector:
                 is_phys = bool(physics_anomalies[i])
                 
                 risk = "NORMAL"
-                if is_ml and is_phys: risk = "CRITICAL"
-                elif is_ml or is_phys: risk = "HIGH"
+                if is_ml and is_phys:
+                    risk = "CRITICAL"
+                elif is_ml or is_phys:
+                    risk = "HIGH"
+
+                sources = []
+                if is_ml:
+                    sources.append("Statistical_Outlier")
+                if is_phys:
+                    sources.append("Physics_ZScore_Deviation")
 
                 results.append(RequirementAnalysis(
                     id=req.get("id", f"REQ_{i}"),
@@ -62,7 +73,7 @@ class EdgeCaseDetector:
                     is_edge_case=is_ml or is_phys,
                     risk_level=risk,
                     complexity_score=float(X[i][0]),
-                    risk_sources=[]
+                    risk_sources=sources
                 ))
             return results
         except Exception as e:

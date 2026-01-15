@@ -26,6 +26,7 @@ async def lifespan(app: FastAPI):
         logger.critical(f"❌ Startup Failed: {e}")
     yield
     ml_resources.clear()
+    logger.info("🛑 System Shutdown.")
 
 app = FastAPI(title="Zeta API", version="1.0.0", lifespan=lifespan)
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
@@ -36,7 +37,9 @@ async def health_check():
 
 @app.post("/generate", response_model=TestSuiteResponse)
 async def generate_tests(request: GenerateRequest):
-    if "llm" not in ml_resources: raise HTTPException(503, "Engines not ready")
+    if "llm" not in ml_resources:
+        raise HTTPException(503, "Engines not ready")
+    
     try:
         raw_tests = await ml_resources["llm"].generate_test_cases(request.requirements_text)
         for test in raw_tests:
@@ -45,7 +48,7 @@ async def generate_tests(request: GenerateRequest):
             
         analysis_objects = await ml_resources["ml"].analyze_complexity(raw_tests)
         
-        # FIX: Merge logic to prevent data loss
+        # Merge logic
         final_test_cases = []
         for original, analysis in zip(raw_tests, analysis_objects):
             merged = original.copy()
