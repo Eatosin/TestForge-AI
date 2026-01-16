@@ -3,13 +3,32 @@
 # ⚛️ Zeta
 ### *Autonomous QA Architect & Physics-Informed Edge Case Detector*
 
-[![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
-[![FastAPI](https://img.shields.io/badge/Backend-FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
-[![Gemini](https://img.shields.io/badge/Intelligence-Gemini_2.5-8E75B2?style=for-the-badge&logo=googlebard&logoColor=white)](https://ai.google.dev)
-[![Scikit-Learn](https://img.shields.io/badge/Physics-Scikit_Learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white)](https://scikit-learn.org)
-[![Docker](https://img.shields.io/badge/Deploy-Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com)
+<!-- TECH STACK BADGES -->
+<p>
+  <img src="https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white" alt="Python">
+  <img src="https://img.shields.io/badge/Backend-FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white" alt="FastAPI">
+  <img src="https://img.shields.io/badge/Intelligence-Gemini_2.5-8E75B2?style=for-the-badge&logo=googlebard&logoColor=white" alt="Gemini">
+  <img src="https://img.shields.io/badge/Physics-Scikit_Learn-F7931E?style=for-the-badge&logo=scikitlearn&logoColor=white" alt="Scikit-Learn">
+  <img src="https://img.shields.io/badge/Deploy-Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" alt="Docker">
+</p>
 
-[Live Demo](https://huggingface.co/spaces/EATosin/Zeta) • [Engineering Log](docs/ENGINEERING_LOG.md) • [User Guide](docs/USER_GUIDE.md) • [Architecture](docs/architecture.md)
+<!-- HERO BANNER -->
+<a href="https://huggingface.co/spaces/EATosin/TestForge-AI">
+  <img src="assets/zeta_hero.png" width="100%" alt="Zeta Architecture" style="border-radius: 10px; box-shadow: 0px 0px 20px rgba(0, 255, 255, 0.2); border: 1px solid #30363d;">
+</a>
+
+<br/><br/>
+
+<!-- ACTION BUTTONS -->
+<p>
+  <a href="https://huggingface.co/spaces/EATosin/TestForge-AI">
+    <img src="https://img.shields.io/badge/🚀_Launch_Live_App-blue?style=for-the-badge&logo=huggingface&logoColor=yellow">
+  </a>
+  &nbsp;
+  <a href="docs/ENGINEERING_LOG.md">
+    <img src="https://img.shields.io/badge/🛠️_Read_Engineering_Log-black?style=for-the-badge&logo=github">
+  </a>
+</p>
 
 </div>
 
