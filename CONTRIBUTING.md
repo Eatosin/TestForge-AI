@@ -1,4 +1,4 @@
-# Contributing to TestForge AI
+# Contributing to Zeta
 
 ## 🤝 How to Contribute
 1.  **Fork** the repository.
